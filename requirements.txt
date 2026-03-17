@@ -1,0 +1,4 @@
+pymavlink
+psutil
+pyyaml
+pytest
