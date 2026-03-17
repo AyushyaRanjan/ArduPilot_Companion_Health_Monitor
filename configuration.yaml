@@ -1,0 +1,66 @@
+sample_interval: 1
+rolling_window: 5
+
+thresholds:
+
+  cpu:
+    warning: 70
+    high: 80
+    critical: 90
+
+  ram:
+    warning: 70
+    high: 80
+    critical: 90
+
+  disk:
+    warning: 70
+    high: 80
+    critical: 90
+
+  temperature:
+    warning: 70
+    high: 80
+    critical: 85
+
+  # GPU temperature thresholds (Raspberry Pi — vcgencmd measure_temp gpu)
+  # RPi 4 throttles at 80C, hard limit is 85C
+  gpu_temperature:
+    warning: 65
+    high: 75
+    critical: 80
+
+timeouts:
+  # Seconds of sustained CRITICAL before RTL is triggered
+  critical_failsafe: 10
+
+  # Seconds all metrics must stay BELOW warning before recovery
+  recovery: 5
+
+  # Minimum seconds between repeated STATUSTEXT messages when critical
+  statustext_interval_critical: 1
+
+  # Minimum seconds between repeated STATUSTEXT messages otherwise
+  statustext_interval_normal: 3
+
+  # Seconds between MAVLink HEARTBEAT sends from companion
+  heartbeat_interval: 1
+
+mavlink:
+  connection: "udp:127.0.0.1:14551"
+  system_id: 42
+  component_id: 191
+
+# Critical services watchdog
+# name    : process name exactly as it appears in ps/top
+# service : systemd unit name for systemctl restart
+watchdog:
+  max_restart_attempts: 2
+  processes:
+    - name: qrtest1
+      service: qrtest1.service
+    # Add more services below as needed:
+    # - name: mavros
+    #   service: mavros.service
+    # - name: roscore
+    #   service: roscore.service
